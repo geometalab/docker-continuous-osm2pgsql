@@ -18,12 +18,13 @@ postgis:
     - POSTGRES_USER=gis
     - POSTGRES_PASSWORD=gis
 
-osm2pgsql:
+osm_importer:
   image: geometalab/osm2pgsql:latest
-  command: osm2pgsql -c -H database -U gis -d gis --slim -C 30000 \
-    --flat-nodes /var/cache/osm-cache \
-    /var/data/osm-planet/pbf/planet-latest.osm.pbf
+  # for development, disable the line above and uncomment the line below
+  # build: .
+  command: /root/update_db.sh
   links:
     - postgis:database
   volumes_from:
     - osm_data
+    - osm_cache

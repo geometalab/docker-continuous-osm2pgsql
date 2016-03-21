@@ -1,0 +1,30 @@
+osm_data:
+  image: debian:jessie
+  # command: wget -O /var/data/osm-planet/pbf/planet-latest.osm.pbf http://ftp5.gwdg.de/pub/misc/openstreetmap/planet.openstreetmap.org/pbf/planet-latest.osm.pbf
+  volumes:
+    - /tmp/osm-planet:/var/data/osm-planet
+
+osm_cache:
+  image: debian:jessie
+  volumes:
+    - osm-world-db_osm_cache:/var/cache/osm-cache
+
+postgis:
+  image: geometalab/postgis:9.4
+  volumes:
+    - osm_world_db-postgis-data:/var/lib/postgresql
+  environment:
+    - POSTGRES_DB=gis
+    - POSTGRES_USER=gis
+    - POSTGRES_PASSWORD=gis
+
+osm2pgsql:
+  dockerfile: osm2pqsgl.dockerfile
+  build: .
+  command: osm2pgsql -c -H database -U gis -d gis --slim -C 20000 \
+    --flat-nodes /var/cache/osm-cache \
+    /var/data/osm-planet/pbf/planet-latest.osm.pbf
+  links:
+    - postgis:database
+  volumes_from:
+    - osm_data

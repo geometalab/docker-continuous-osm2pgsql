@@ -19,8 +19,7 @@ postgis:
     - POSTGRES_PASSWORD=gis
 
 osm2pgsql:
-  dockerfile: osm2pqsgl.dockerfile
-  build: .
+  image: geometalab/osm2pgsql:latest
   command: osm2pgsql -c -H database -U gis -d gis --slim -C 20000 \
     --flat-nodes /var/cache/osm-cache \
     /var/data/osm-planet/pbf/planet-latest.osm.pbf

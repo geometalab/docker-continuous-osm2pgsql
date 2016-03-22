@@ -1,6 +1,6 @@
 # osm-world-db
 
-*Warning*: This process needs at least 400GB of disk space!
+**Warning**: This process needs at least 400GB of disk space!
 70GB for the osm-world pbf and at least another 200GB for the
 postgres database, and additionally another
 good 20GB for files that are needed to update the database.

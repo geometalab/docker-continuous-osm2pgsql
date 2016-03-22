@@ -5,7 +5,7 @@
 postgres database, and additionally another
 good 20GB for files that are needed to update the database.
 
-A collection to setup and maintain a world database.
+A docker-compose setup to set up and maintain a world database.
 
 Currently, update speed depends solely on the hardware used.
 They are being run as soon as that the run before has finished.

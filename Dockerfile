@@ -29,6 +29,7 @@ WORKDIR /root/osmupdate
 RUN wget -O - http://m.m.i24.cc/osmupdate.c | cc -x c - -o osmupdate
 
 WORKDIR /root/osm2pgsql
+ENV LATEST_OSM2PGSQL_UPDATE 2016-03-23_17:40
 RUN git clone git://github.com/openstreetmap/osm2pgsql.git /root/osm2pgsql
 RUN mkdir build
 WORKDIR /root/osm2pgsql/build

@@ -47,14 +47,29 @@ generate and upload the newest generated image to dockerhub.
 
 ### Testing
 
-For Testing purposes, you can use switzerland as testdata as follows:
+For Testing purposes, you can use Switzerland as testdata as follows:
+
+Maybe replace europe/switzerland-160321.osm.pbf with a less out of date
+file, so the update process doesn't take so long.
 
 ```
 docker-compose up -d postgis
 # wait 10 seconds
-docker-compose run \
+docker-compose run --rm \
   -e osmupdate_extra_params="--base-url=download.geofabrik.de/europe/switzerland-updates/" \
   -e osm_planet_mirror="http://download.geofabrik.de/" \
-  -e osm_planet_path_relative_to_mirror="europe/switzerland-latest.osm.pbf" \
+  -e osm_planet_path_relative_to_mirror="europe/switzerland-160321.osm.pbf" \
+  osm_importer
+```
+
+or with much less runtime, use Andorra:
+
+```
+docker-compose up -d postgis
+# wait 10 seconds
+docker-compose run --rm \
+  -e osmupdate_extra_params="--base-url=download.geofabrik.de/europe/andorra-updates/" \
+  -e osm_planet_mirror="http://download.geofabrik.de/" \
+  -e osm_planet_path_relative_to_mirror="europe/andorra-160320.osm.pbf" \
   osm_importer
 ```

@@ -21,11 +21,13 @@ initial_import() {
 update() {
   # all steps are idempotent, they can be repeated without information loss/duplication
   ${nice} osmupdate -v ${osmupdate_extra_params} ${planet_latest} ${planet_diff}_tmp || true
-  ${nice} mv ${planet_diff}_tmp ${planet_diff}
-  ${nice} osm2pgsql --append ${osm2pgsql_base_args} ${planet_diff}
-  ${nice} osmconvert -v ${planet_latest} ${planet_diff} -o=${pbf_dir}/planet-latest-new.osm.pbf
-  ${nice} mv ${pbf_dir}/planet-latest-new.osm.pbf ${planet_latest}
-  ${nice} rm ${planet_diff}
+  if [ -f "${planet_diff}_tmp" ]; then
+    ${nice} mv ${planet_diff}_tmp ${planet_diff}
+    ${nice} osm2pgsql --append ${osm2pgsql_base_args} ${planet_diff}
+    ${nice} osmconvert -v ${planet_latest} ${planet_diff} -o=${pbf_dir}/planet-latest-new.osm.pbf
+    ${nice} mv ${pbf_dir}/planet-latest-new.osm.pbf ${planet_latest}
+    ${nice} rm ${planet_diff}
+  fi
 }
 
 if [ ! -f "${osm_planet_base_dir}/db_initial_import_completed" ]; then

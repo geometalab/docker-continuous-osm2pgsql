@@ -1,0 +1,31 @@
+osm_data:
+  image: debian:jessie
+  command: echo just a data container
+  volumes:
+    - osm-world_osm_data:/var/data/osm-planet
+
+osm_cache:
+  image: debian:jessie
+  command: echo just a data container
+  volumes:
+    - osm-world_osm_cache:/var/cache/osm-cache
+
+postgis:
+  image: geometalab/postgis:9.4
+  volumes:
+    - osm_world-db-postgis-data:/var/lib/postgresql
+  environment:
+    - POSTGRES_DB=gis
+    - POSTGRES_USER=gis
+    - POSTGRES_PASSWORD=gis
+
+osm_importer:
+  image: geometalab/osm2pgsql:latest
+  # for development, disable the line above and uncomment the line below
+  # build: .
+  command: /root/run.sh
+  links:
+    - postgis:database
+  volumes_from:
+    - osm_data
+    - osm_cache

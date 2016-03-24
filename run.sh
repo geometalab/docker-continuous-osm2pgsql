@@ -1,7 +1,8 @@
 #!/bin/bash
 set -e
 nice="nice -n 19"
-osm2pgsql_base_args="--number-processes 8 --keep-coastlines -H database -U gis -d gis --slim -C 30000 --flat-nodes /var/data/osm-cache"
+num_processes=${num_processes:-8}
+osm2pgsql_base_args="--number-processes ${num_processes} --keep-coastlines -H database -U gis -d gis --slim -C 30000 --flat-nodes /var/data/osm-cache"
 osm_planet_base_dir="/var/data/osm-planet"
 pbf_dir="${osm_planet_base_dir}/pbf"
 osm_planet_mirror="${osm_planet_mirror:-http://ftp5.gwdg.de/pub/misc/openstreetmap/planet.openstreetmap.org}"

@@ -30,3 +30,5 @@ osm_importer:
   volumes_from:
     - osm_data
     - osm_cache
+  environment:
+    - num_processes=16

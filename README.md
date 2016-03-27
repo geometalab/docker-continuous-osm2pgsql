@@ -1,9 +1,9 @@
 # osm-world-db
 
-**Warning**: This process needs at least 600GB of disk space!
-70GB for the osm-world pbf and at least another 200GB for the
+**Warning**: This process needs at least 1.4TB of disk space!
+70GB for the osm-world pbf and at least another 400GB for the
 postgres database, and additionally another
-good 20GB for files that are needed to update the database.
+good 680GB for files that are needed to update the database (cache files).
 
 A docker-compose setup to set up and maintain a world database.
 

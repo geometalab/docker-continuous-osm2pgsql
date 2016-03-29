@@ -2,7 +2,7 @@
 set -e
 nice="nice -n 19"
 num_processes=${num_processes:-8}
-osm_cache=/var/cache/osm-cache
+osm_cache=/var/cache/osm-cache/persistent-cache-file
 osm2pgsql_base_args="--number-processes ${num_processes} --keep-coastlines -H database -U gis -d gis --slim -C 30000 --flat-nodes ${osm_cache}"
 osm_planet_base_dir="/var/data/osm-planet"
 pbf_dir="${osm_planet_base_dir}/pbf"

@@ -11,13 +11,16 @@ osm_cache:
     - osm-world_osm_cache:/var/cache/osm-cache
 
 postgis:
-  image: geometalab/postgis:9.4
+  image: geometalab/postgis:9.5
   volumes:
     - osm_world-db-postgis-data:/var/lib/postgresql
+  command: postgres -B 12GB -F -N 512 -S 20GB
   environment:
     - POSTGRES_DB=gis
     - POSTGRES_USER=gis
     - POSTGRES_PASSWORD=gis
+  log_opt:
+    max-size: 50k
 
 osm_importer:
   image: geometalab/osm2pgsql:latest
@@ -29,3 +32,7 @@ osm_importer:
   volumes_from:
     - osm_data
     - osm_cache
+  environment:
+    - num_processes=16
+  log_opt:
+    max-size: 50k

@@ -73,3 +73,17 @@ docker-compose run --rm \
   -e osm_planet_path_relative_to_mirror="europe/andorra-160320.osm.pbf" \
   osm_importer
 ```
+
+### Postgres run options
+
+Most options can be provided through the command line, for complete list
+you can run `docker run --rm geometalab/postgis:9.5 postgres --help`.
+
+The ones we are using are:
+
+```
+  -B NBUFFERS        number of shared buffers
+  -F                 turn fsync off
+  -N MAX-CONNECT     maximum number of allowed connections
+  -S WORK-MEM        set amount of memory for sorts (in kB)
+```

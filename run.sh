@@ -1,7 +1,9 @@
 #!/bin/bash
 set -e
 nice="nice -n 19"
-osm2pgsql_base_args="--number-processes 8 --keep-coastlines -H database -U gis -d gis --slim -C 30000 --flat-nodes /var/data/osm-cache"
+num_processes=${num_processes:-8}
+osm_cache=/var/cache/osm-cache/persistent-cache-file
+osm2pgsql_base_args="--number-processes ${num_processes} --keep-coastlines -H database -U gis -d gis --slim -C 30000 --flat-nodes ${osm_cache}"
 osm_planet_base_dir="/var/data/osm-planet"
 pbf_dir="${osm_planet_base_dir}/pbf"
 osm_planet_mirror="${osm_planet_mirror:-http://ftp5.gwdg.de/pub/misc/openstreetmap/planet.openstreetmap.org}"
@@ -12,7 +14,7 @@ planet_diff="${pbf_dir}/planet-latest.osc.gz"
 
 initial_import() {
   mkdir -p ${pbf_dir}
-  ${nice} wget -O ${planet_latest}_tmp ${complete_planet_mirror_url}
+  ${nice} wget --continue -O ${planet_latest}_tmp ${complete_planet_mirror_url}
   ${nice} mv ${planet_latest}_tmp ${planet_latest}
   ${nice} osm2pgsql -c ${osm2pgsql_base_args} ${planet_latest}
   touch ${osm_planet_base_dir}/db_initial_import_completed

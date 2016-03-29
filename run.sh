@@ -14,7 +14,7 @@ planet_diff="${pbf_dir}/planet-latest.osc.gz"
 
 initial_import() {
   mkdir -p ${pbf_dir}
-  ${nice} wget -O ${planet_latest}_tmp ${complete_planet_mirror_url}
+  ${nice} wget --continue -O ${planet_latest}_tmp ${complete_planet_mirror_url}
   ${nice} mv ${planet_latest}_tmp ${planet_latest}
   ${nice} osm2pgsql -c ${osm2pgsql_base_args} ${planet_latest}
   touch ${osm_planet_base_dir}/db_initial_import_completed

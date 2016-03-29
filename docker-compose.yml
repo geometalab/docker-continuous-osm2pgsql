@@ -19,6 +19,8 @@ postgis:
     - POSTGRES_DB=gis
     - POSTGRES_USER=gis
     - POSTGRES_PASSWORD=gis
+  log_opt:
+    max-size: 50k
 
 osm_importer:
   image: geometalab/osm2pgsql:latest
@@ -32,3 +34,5 @@ osm_importer:
     - osm_cache
   environment:
     - num_processes=16
+  log_opt:
+    max-size: 50k

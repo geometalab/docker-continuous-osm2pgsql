@@ -12,7 +12,7 @@ services:
       - POSTGRES_USER=gis
       - POSTGRES_PASSWORD=gis
     networks:
-      - osm-world-intern
+      - osm-world-internal
       - osm-world
     logging:
       driver: "json-file"
@@ -34,7 +34,7 @@ services:
     environment:
       - num_processes=16
     networks:
-      - osm-world-intern
+      - osm-world-internal
     logging:
       driver: "json-file"
       options:
@@ -46,5 +46,5 @@ volumes:
 networks:
   osm-world:
     driver: bridge
-  osm-world-intern:
+  osm-world-internal:
     driver: bridge

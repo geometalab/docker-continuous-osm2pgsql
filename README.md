@@ -58,7 +58,7 @@ docker-compose up -d postgis
 docker-compose run --rm \
   -e osmupdate_extra_params="--base-url=download.geofabrik.de/europe/switzerland-updates/" \
   -e osm_planet_mirror="http://download.geofabrik.de/" \
-  -e osm_planet_path_relative_to_mirror="europe/switzerland-160321.osm.pbf" \
+  -e osm_planet_path_relative_to_mirror="europe/switzerland-160301.osm.pbf" \
   osm_importer
 ```
 
@@ -70,7 +70,7 @@ docker-compose up -d postgis
 docker-compose run --rm \
   -e osmupdate_extra_params="--base-url=download.geofabrik.de/europe/andorra-updates/" \
   -e osm_planet_mirror="http://download.geofabrik.de/" \
-  -e osm_planet_path_relative_to_mirror="europe/andorra-160320.osm.pbf" \
+  -e osm_planet_path_relative_to_mirror="europe/andorra-160301.osm.pbf" \
   osm_importer
 ```
 
@@ -87,3 +87,6 @@ The ones we are using are:
   -N MAX-CONNECT     maximum number of allowed connections
   -S WORK-MEM        set amount of memory for sorts (in kB)
 ```
+
+Additionally, to get a better update-performance, we use
+the `max_wal_size=5GB` as run-time options. 

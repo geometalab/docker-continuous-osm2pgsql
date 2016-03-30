@@ -56,20 +56,15 @@ generate and upload the newest generated image to dockerhub.
 
 ### Testing
 
-For Testing purposes, you can use Switzerland as testdata as follows:
-
-Maybe replace europe/switzerland-160321.osm.pbf with a less out of date
-file, so the update process doesn't take so long.
+For Testing purposes, you can use Switzerland as testbed as follows
+(import takes around one hour):
 
 ```
-docker-compose run --rm \
-  -e osmupdate_extra_params="--base-url=download.geofabrik.de/europe/switzerland-updates/" \
-  -e osm_planet_mirror="http://download.geofabrik.de/" \
-  -e osm_planet_path_relative_to_mirror="europe/switzerland-160301.osm.pbf" \
-  osm_importer
+docker-compose -f docker-compose.yml -f dev.yml up
 ```
 
-or with much less runtime, use Monaco:
+Or with much less runtime, use the containers directly, and you even 
+can try out if the update process is working, for example with Monaco:
 
 ```
 docker-compose run --rm \

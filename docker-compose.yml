@@ -14,7 +14,7 @@ postgis:
   image: geometalab/postgis:9.5
   volumes:
     - osm_world-db-postgis-data:/var/lib/postgresql
-  command: postgres -B 12GB -F -N 512 -S 20GB
+  command: postgres -B 12GB -F -N 512 -S 20GB --max_wal_size=5GB
   environment:
     - POSTGRES_DB=gis
     - POSTGRES_USER=gis

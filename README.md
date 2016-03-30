@@ -19,23 +19,32 @@ The examples all use docker-compose for starting/stopping.
 ### Starting
 
 ```
-docker-compose pull
-docker-compose up -d osm_importer
+docker-compose up -d
 ```
 
 ### Stopping
 
 ```
-docker-compose kill osm_importer
+docker-compose down
 ```
 
 ### Updating
 
 ```
-docker-compose kill osm_importer
-docker-compose rm osm_importer
+docker-compose down
 docker-compose pull
-docker-compose up -d osm_importer
+docker-compose up -d
+```
+
+### Complete cleanup
+
+**Warning**: this removes all the data, the entire process
+will start at the beginning again.
+
+Remove images (`--rmi`) and volumes (`-v`):
+
+```
+docker-compose down --rmi local -v
 ```
 
 ## Development
@@ -53,8 +62,6 @@ Maybe replace europe/switzerland-160321.osm.pbf with a less out of date
 file, so the update process doesn't take so long.
 
 ```
-docker-compose up -d postgis
-# wait 10 seconds
 docker-compose run --rm \
   -e osmupdate_extra_params="--base-url=download.geofabrik.de/europe/switzerland-updates/" \
   -e osm_planet_mirror="http://download.geofabrik.de/" \
@@ -62,15 +69,13 @@ docker-compose run --rm \
   osm_importer
 ```
 
-or with much less runtime, use Andorra:
+or with much less runtime, use Monaco:
 
 ```
-docker-compose up -d postgis
-# wait 10 seconds
 docker-compose run --rm \
-  -e osmupdate_extra_params="--base-url=download.geofabrik.de/europe/andorra-updates/" \
+  -e osmupdate_extra_params="--base-url=download.geofabrik.de/europe/monaco-updates/" \
   -e osm_planet_mirror="http://download.geofabrik.de/" \
-  -e osm_planet_path_relative_to_mirror="europe/andorra-160301.osm.pbf" \
+  -e osm_planet_path_relative_to_mirror="europe/monaco-160301.osm.pbf" \
   osm_importer
 ```
 

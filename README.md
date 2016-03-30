@@ -86,7 +86,5 @@ The ones we are using are:
   -F                 turn fsync off
   -N MAX-CONNECT     maximum number of allowed connections
   -S WORK-MEM        set amount of memory for sorts (in kB)
+  --max_wal_size=5GB set max_wal_size to 5GB
 ```
-
-Additionally, to get a better update-performance, we use
-the `max_wal_size=5GB` as run-time options. 

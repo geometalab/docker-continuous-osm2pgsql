@@ -40,4 +40,5 @@ RUN chmod 0600 /root/.pgpass
 
 WORKDIR /root
 
+COPY ./wait-for-it/wait-for-it.sh /root/wait-for-it.sh
 COPY ./run.sh /root/run.sh

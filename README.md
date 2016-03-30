@@ -19,23 +19,32 @@ The examples all use docker-compose for starting/stopping.
 ### Starting
 
 ```
-docker-compose pull
-docker-compose up -d osm_importer
+docker-compose up -d
 ```
 
 ### Stopping
 
 ```
-docker-compose kill osm_importer
+docker-compose down
 ```
 
 ### Updating
 
 ```
-docker-compose kill osm_importer
-docker-compose rm osm_importer
+docker-compose down
 docker-compose pull
-docker-compose up -d osm_importer
+docker-compose up -d
+```
+
+### Complete cleanup
+
+**Warning**: this removes all the data, the entire process
+will start at the beginning again.
+
+Remove images (`--rmi`) and volumes (`-v`):
+
+```
+docker-compose down --rmi local -v
 ```
 
 ## Development
@@ -47,30 +56,21 @@ generate and upload the newest generated image to dockerhub.
 
 ### Testing
 
-For Testing purposes, you can use Switzerland as testdata as follows:
-
-Maybe replace europe/switzerland-160321.osm.pbf with a less out of date
-file, so the update process doesn't take so long.
+For Testing purposes, you can use Switzerland as testbed as follows
+(import takes around one hour):
 
 ```
-docker-compose up -d postgis
-# wait 10 seconds
-docker-compose run --rm \
-  -e osmupdate_extra_params="--base-url=download.geofabrik.de/europe/switzerland-updates/" \
+docker-compose -f docker-compose.yml -f dev.yml up
+```
+
+Or with much less runtime, use the containers directly, and you even 
+can try whether the update process is working, for example with Monaco:
+
+```
+docker-compose -f docker-compose.yml -f dev.yml run --rm \
+  -e osmupdate_extra_params="--base-url=download.geofabrik.de/europe/monaco-updates/" \
   -e osm_planet_mirror="http://download.geofabrik.de/" \
-  -e osm_planet_path_relative_to_mirror="europe/switzerland-160301.osm.pbf" \
-  osm_importer
-```
-
-or with much less runtime, use Andorra:
-
-```
-docker-compose up -d postgis
-# wait 10 seconds
-docker-compose run --rm \
-  -e osmupdate_extra_params="--base-url=download.geofabrik.de/europe/andorra-updates/" \
-  -e osm_planet_mirror="http://download.geofabrik.de/" \
-  -e osm_planet_path_relative_to_mirror="europe/andorra-160301.osm.pbf" \
+  -e osm_planet_path_relative_to_mirror="europe/monaco-160301.osm.pbf" \
   osm_importer
 ```
 

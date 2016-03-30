@@ -67,7 +67,7 @@ Or with much less runtime, use the containers directly, and you even
 can try out if the update process is working, for example with Monaco:
 
 ```
-docker-compose run --rm \
+docker-compose -f docker-compose.yml -f dev.yml run --rm \
   -e osmupdate_extra_params="--base-url=download.geofabrik.de/europe/monaco-updates/" \
   -e osm_planet_mirror="http://download.geofabrik.de/" \
   -e osm_planet_path_relative_to_mirror="europe/monaco-160301.osm.pbf" \

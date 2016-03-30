@@ -64,7 +64,7 @@ docker-compose -f docker-compose.yml -f dev.yml up
 ```
 
 Or with much less runtime, use the containers directly, and you even 
-can try out if the update process is working, for example with Monaco:
+can try whether the update process is working, for example with Monaco:
 
 ```
 docker-compose -f docker-compose.yml -f dev.yml run --rm \

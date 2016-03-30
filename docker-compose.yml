@@ -11,6 +11,8 @@ osm_cache:
     - osm-world_osm_cache:/var/cache/osm-cache
 
 postgis:
+  # to limit scaling to exactly 1, we need to specify the container name
+  container_name: osmworlddb_postgis
   image: geometalab/postgis:9.5
   volumes:
     - osm_world-db-postgis-data:/var/lib/postgresql
@@ -23,6 +25,8 @@ postgis:
     max-size: 50k
 
 osm_importer:
+  # to limit scaling to exactly 1, we need to specify the container name
+  container_name: osmworlddb_osm_importer
   image: geometalab/osm2pgsql:latest
   # for development, disable the line above and uncomment the line below
   # build: .

@@ -22,9 +22,11 @@ For example:
 ```
 volumes:
     - /tmp/my_styles:/root/styles
-environemnt:
+environment:
     osm2pgsql_extra_args=--style /root/styles/my_style.style --tag-transform-script /root/styles/my_transform_style.lua
 ```
+
+To disable custom styles altogether, just set `osm2pgsql_extra_args` to an empty string. 
 
 ## Usage
 

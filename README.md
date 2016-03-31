@@ -12,6 +12,20 @@ Thus, when one update finishes, the next update is started after a short, fixed-
 
 Update duration, and thus the update interval, strongly depends on the hardware used.
 
+Per default, this world db uses the stylesheets and option defined under `styles/`
+but you can customize that:
+
+In your docker-compose file, link a volume to `/root/styles`, for example `/tmp/my_styles` and set the
+environment variable `osm2pgsql_extra_args` correspondingly. 
+
+For example: 
+```
+volumes:
+    - /tmp/my_styles:/root/styles
+environemnt:
+    osm2pgsql_extra_args=--style /root/styles/my_style.style --tag-transform-script /root/styles/my_transform_style.lua
+```
+
 ## Usage
 
 The examples all use docker-compose for starting/stopping.

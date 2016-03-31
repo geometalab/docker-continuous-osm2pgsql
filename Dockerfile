@@ -38,6 +38,8 @@ RUN make && make install
 RUN echo 'database:5432:gis:gis:gis' > /root/.pgpass
 RUN chmod 0600 /root/.pgpass
 
+COPY ./styles /root/styles
+
 WORKDIR /root
 
 COPY ./wait-for-it/wait-for-it.sh /root/wait-for-it.sh

@@ -26,7 +26,18 @@ environment:
     osm2pgsql_extra_args=--style /root/styles/my_style.style --tag-transform-script /root/styles/my_transform_style.lua
 ```
 
-To disable custom styles altogether, just set `osm2pgsql_extra_args` to an empty string. 
+To disable custom styles altogether, just set `osm2pgsql_extra_args` to an empty string.
+
+## Table Prefix
+
+The table prefix has been shortened from `planet_osm` to just `osm`. If
+you'd like to change that, just set an environment variable called
+`table_prefix`.
+
+```
+environment:
+    - table_prefix=my_prefix
+```
 
 ## Usage
 

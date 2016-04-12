@@ -32,7 +32,7 @@ To disable custom styles altogether, just set `osm2pgsql_extra_args` to an empty
 
 The table prefix has been shortened from `planet_osm` to just `osm`. If
 you'd like to change that, just set an environment variable called
-`table_prefix`.
+`table_prefix` to the prefix you want:
 
 ```
 environment:

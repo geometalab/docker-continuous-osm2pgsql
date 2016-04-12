@@ -1,10 +1,15 @@
 #!/bin/bash
 set -e
+
+# wait for at most 30s for the db to be up
+/root/wait-for-it.sh ${POSTGRES_HOST}:${POSTGRES_PORT} -t 30
+
 nice="nice -n 19"
 num_processes=${num_processes:-8}
 osm_cache=/var/cache/osm-cache/persistent-cache-file
+osm2pgsl_table_prefix=${table_prefix:-osm}
 osm2pgsql_ram_cache=${ram_cache:-30000}
-osm2pgsql_base_args="--number-processes ${num_processes} --keep-coastlines -H database -U gis -d gis --slim -C ${osm2pgsql_ram_cache} --flat-nodes ${osm_cache}"
+osm2pgsql_base_args="--number-processes ${num_processes} -H database -U gis -d gis --slim -C ${osm2pgsql_ram_cache} --flat-nodes ${osm_cache} --prefix ${osm2pgsl_table_prefix} --hstore"
 osm2pgsql_extra_args=${extra_args:-"--style /root/styles/terminal.style --tag-transform-script /root/styles/tag_transform_style.lua"}
 osm_planet_base_dir="/var/data/osm-planet"
 pbf_dir="${osm_planet_base_dir}/pbf"

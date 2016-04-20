@@ -1,4 +1,4 @@
-# osm-world-db
+# docker-continuous-osm2pgsql
 
 **Warning**: This process needs at least 1.4TB of disk space!
 70GB for the osm-world pbf and at least another 400GB for the
@@ -16,9 +16,9 @@ Per default, this world db uses the stylesheets and option defined under `styles
 but you can customize that:
 
 In your docker-compose file, link a volume to `/root/styles`, for example `/tmp/my_styles` and set the
-environment variable `osm2pgsql_extra_args` correspondingly. 
+environment variable `osm2pgsql_extra_args` correspondingly.
 
-For example: 
+For example:
 ```
 volumes:
     - /tmp/my_styles:/root/styles
@@ -36,7 +36,18 @@ you'd like to change that, just set an environment variable called
 
 ```
 environment:
-    - table_prefix=my_prefix
+  - table_prefix=my_prefix
+```
+
+## Hstore
+
+If you plan to use this container with a different database
+then the one in the docker-compose, without hstore enabled,
+you can disable osm2psql hstore import:
+
+```
+environment:
+  - hstore=''
 ```
 
 ## Usage
@@ -90,7 +101,7 @@ For Testing purposes, you can use Switzerland as testbed as follows
 docker-compose -f docker-compose.yml -f dev.yml up
 ```
 
-Or with much less runtime, use the containers directly, and you even 
+Or with much less runtime, use the containers directly, and you even
 can try whether the update process is working, for example with Monaco:
 
 ```

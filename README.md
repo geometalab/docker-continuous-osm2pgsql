@@ -1,4 +1,4 @@
-# osm-world-db
+# docker-continuous-osm2pgsql
 
 **Warning**: This process needs at least 1.4TB of disk space!
 70GB for the osm-world pbf and at least another 400GB for the
@@ -11,6 +11,44 @@ After the initial import of the OpenStreetMap planet, this loops the update proc
 Thus, when one update finishes, the next update is started after a short, fixed-duration break unless the process is being terminated.
 
 Update duration, and thus the update interval, strongly depends on the hardware used.
+
+Per default, this world db uses the stylesheets and option defined under `styles/`
+but you can customize that:
+
+In your docker-compose file, link a volume to `/root/styles`, for example `/tmp/my_styles` and set the
+environment variable `osm2pgsql_extra_args` correspondingly.
+
+For example:
+```
+volumes:
+    - /tmp/my_styles:/root/styles
+environment:
+    osm2pgsql_extra_args=--style /root/styles/my_style.style --tag-transform-script /root/styles/my_transform_style.lua
+```
+
+To disable custom styles altogether, just set `osm2pgsql_extra_args` to an empty string.
+
+## Table Prefix
+
+The table prefix has been shortened from `planet_osm` to just `osm`. If
+you'd like to change that, just set an environment variable called
+`table_prefix` to the prefix you want:
+
+```
+environment:
+  - table_prefix=my_prefix
+```
+
+## Hstore
+
+If you plan to use this container with a different database
+then the one in the docker-compose, without hstore enabled,
+you can disable osm2psql hstore import:
+
+```
+environment:
+  - hstore=''
+```
 
 ## Usage
 
@@ -63,7 +101,7 @@ For Testing purposes, you can use Switzerland as testbed as follows
 docker-compose -f docker-compose.yml -f dev.yml up
 ```
 
-Or with much less runtime, use the containers directly, and you even 
+Or with much less runtime, use the containers directly, and you even
 can try whether the update process is working, for example with Monaco:
 
 ```

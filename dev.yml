@@ -3,7 +3,10 @@ services:
   database:
     command: postgres -B 2GB -F -N 512 -S 2GB --max_wal_size=2GB
   osm_importer:
+    build:
+      context: .
     environment:
+      - ram_cache=2000
       - num_processes=8
       - osmupdate_extra_params=--base-url=download.geofabrik.de/europe/switzerland-updates/
       - osm_planet_mirror=http://download.geofabrik.de/

@@ -1,3 +1,3 @@
 #!/bin/bash
-docker build -t geometalab/osm2pgsql:latest .
-docker push geometalab/osm2pgsql:latest
+docker build -t geometalab/continuous-osm2pgsql:latest .
+docker push geometalab/continuous-osm2pgsql:latest

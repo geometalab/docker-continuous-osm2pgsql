@@ -6,6 +6,7 @@ services:
     build:
       context: .
     environment:
+      - ram_cache=2000
       - num_processes=8
       - osmupdate_extra_params=--base-url=download.geofabrik.de/europe/switzerland-updates/
       - osm_planet_mirror=http://download.geofabrik.de/
